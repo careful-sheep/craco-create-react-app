@@ -1,0 +1,7 @@
+{
+    "scss.lint.unknownAtRules": "ignore",
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact"
+    ]
+}
