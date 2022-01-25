@@ -1,0 +1,50 @@
+const glob = require('glob');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const setEntry = () => {
+    const files = glob.sync('./src/pages/**/index.tsx');
+    const entry = {};
+    for (const file of files) {
+        const ret = file.match(/^\.\/src\/pages\/(\S*)\/index\.tsx$/);
+        if (ret) {
+            entry[ret[1]] = {
+                import: file
+            };
+        }
+    }
+    return entry;
+};
+
+const getTemplate = name => {
+    const files = glob.sync(`./src/pages/${name}/index.html`);
+    if (files.length > 0) {
+        return files[0];
+    }
+    return './public/index.html';
+};
+
+const setHtmlPlugin = () => {
+    const files = glob.sync('./src/pages/**/index.tsx');
+    const options = [];
+    for (const file of files) {
+        const ret = file.match(/^\.\/src\/pages\/(\S*)\/index\.tsx$/);
+        if (ret) {
+            const name = ret[1];
+            const isIndex = name === 'index';
+            options.push(
+                new HtmlWebpackPlugin({
+                    filename: isIndex ? 'index.html' : `${name}/index.html`,
+                    template: getTemplate(name),
+                    chunks: ['react_vendors', name],
+                    title: name
+                })
+            );
+        }
+    }
+    return options;
+};
+
+module.exports = {
+    setEntry,
+    setHtmlPlugin
+};
