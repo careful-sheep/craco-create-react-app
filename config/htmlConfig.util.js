@@ -16,15 +16,16 @@ const setEntry = () => {
 };
 
 const getTemplate = name => {
-    const files = glob.sync(`./src/pages/${name}/index.html`);
+    const files = glob.sync(`./src/pages/${name}/index.thymes.ejs`);
     if (files.length > 0) {
         return files[0];
     }
-    return './public/index.html';
+    return './public/index.thymes.ejs';
 };
 
 const setHtmlPlugin = () => {
     const files = glob.sync('./src/pages/**/index.tsx');
+    const isEnv = process.env.NODE_ENV === 'development';
     const options = [];
     for (const file of files) {
         const ret = file.match(/^\.\/src\/pages\/(\S*)\/index\.tsx$/);
@@ -33,10 +34,11 @@ const setHtmlPlugin = () => {
             const isIndex = name === 'index';
             options.push(
                 new HtmlWebpackPlugin({
-                    filename: isIndex ? 'index.html' : `${name}/index.html`,
+                    filename: isEnv ? (isIndex ? 'index.html' : `${name}/index.html`) : `${name}.thymes`,
                     template: getTemplate(name),
                     chunks: ['react_vendors', name],
-                    title: name
+                    title: name,
+                    env: process.env.NODE_ENV
                 })
             );
         }
