@@ -1,28 +1,26 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans-CN">
-<head>
-    <meta charset="utf-8" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#fff" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title
-        th:text="${pageData?.seo?.get('title')?.textValue()}?:'飞桨PaddlePaddle-源于产业实践的开源深度学习平台'"
-    >
-        飞桨PaddlePaddle-源于产业实践的开源深度学习平台
-    </title>
-    <meta
-        name="keywords"
-        th:content="${pageData?.seo?.get('keywords')?.textValue()?:'飞桨PaddlePaddle'}"
-        content="飞桨PaddlePaddle"
-    />
-    <meta
-        name="description"
-        th:content="${pageData?.seo?.get('description')?.textValue()?:'飞桨PaddlePaddle-源于产业实践的开源深度学习平台'}"
-        content="飞桨PaddlePaddle-源于产业实践的开源深度学习平台"
-    />
+    <head>
+        <meta charset="utf-8" />
+        <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#fff" />
+        <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+        <title th:text="${pageData?.seo?.get('title')?.textValue()}?:'飞桨PaddlePaddle-源于产业实践的开源深度学习平台'">
+            飞桨PaddlePaddle-源于产业实践的开源深度学习平台
+        </title>
+        <meta
+            name="keywords"
+            th:content="${pageData?.seo?.get('keywords')?.textValue()?:'飞桨PaddlePaddle'}"
+            content="飞桨PaddlePaddle"
+        />
+        <meta
+            name="description"
+            th:content="${pageData?.seo?.get('description')?.textValue()?:'飞桨PaddlePaddle-源于产业实践的开源深度学习平台'}"
+            content="飞桨PaddlePaddle-源于产业实践的开源深度学习平台"
+        />
 
-    <% if (htmlWebpackPlugin.options.env === 'production') { %>
+        <% if (htmlWebpackPlugin.options.env === 'production') { %>
         <script>
             var _hmt = _hmt || [];
             (function () {
@@ -32,55 +30,60 @@
                 s.parentNode.insertBefore(hm, s);
             })();
         </script>
-    <% } %>
+        <% } %>
 
-    <style type="text/css">
-        .paddle-s-e-o {
-            position: absolute;
-            overflow: hidden;
-            height: 0;
-            width: 0;
-        }
-    </style>
-</head>
-<body>
-<noscript>You need to enable JavaScript to run this app.</noscript>
-<div style="height:0;overflow:hidden;">\u200E</div>
-<div id="root"></div>
-<div class="paddle-s-e-o">
-    <div class="header">
-        <ul th:if="${pageData?.navData}">
-            <li th:each="nav : ${pageData.navData}">
-                <th:block th:if="${nav.get('href').textValue()} neq ''">
-                    <a th:href="${nav.get('href').textValue()}" th:text="${nav.get('title').textValue()}"></a>
-                </th:block>
-                <th:block th:if="${nav.get('href').textValue()} eq ''">
-                    [[${nav.get('title').textValue()}]]
-                    <ul>
-                        <li th:each="i2 : ${nav.get('items')}">
-                            <th:block th:if="${i2.get('href').textValue()} neq ''">
-                                <a th:href="${i2.get('href').textValue()}" th:text="${i2.get('title').textValue()}"></a>
-                            </th:block>
-                            <th:block th:if="${i2.get('href').textValue()} eq ''">
-                                [[${i2.get('title').textValue()}]]
-                                <ul>
-                                    <li th:each="i3 : ${i2.get('items')}">
-                                        <th:block th:if="${i3.get('href').textValue()} neq ''">
-                                            <a th:href="${i3.get('href').textValue()}"
-                                               th:text="${i3.get('title').textValue()}"></a>
-                                        </th:block>
-                                        <th:block th:if="${i3.get('href').textValue()} eq ''">
-                                            [[${i3.get('title').textValue()}]]
-                                        </th:block>
-                                    </li>
-                                </ul>
-                            </th:block>
-                        </li>
-                    </ul>
-                </th:block>
-            </li>
-        </ul>
-    </div>
-</div>
-</body>
+        <style type="text/css">
+            .paddle-s-e-o {
+                position: absolute;
+                overflow: hidden;
+                height: 0;
+                width: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div style="height: 0; overflow: hidden">\u200E</div>
+        <div id="root"></div>
+        <div class="paddle-s-e-o">
+            <div class="header">
+                <ul th:if="${pageData?.navData}">
+                    <li th:each="nav : ${pageData.navData}">
+                        <th:block th:if="${nav.get('href').textValue()} neq ''">
+                            <a th:href="${nav.get('href').textValue()}" th:text="${nav.get('title').textValue()}"></a>
+                        </th:block>
+                        <th:block th:if="${nav.get('href').textValue()} eq ''">
+                            [[${nav.get('title').textValue()}]]
+                            <ul>
+                                <li th:each="i2 : ${nav.get('items')}">
+                                    <th:block th:if="${i2.get('href').textValue()} neq ''">
+                                        <a
+                                            th:href="${i2.get('href').textValue()}"
+                                            th:text="${i2.get('title').textValue()}"
+                                        ></a>
+                                    </th:block>
+                                    <th:block th:if="${i2.get('href').textValue()} eq ''">
+                                        [[${i2.get('title').textValue()}]]
+                                        <ul>
+                                            <li th:each="i3 : ${i2.get('items')}">
+                                                <th:block th:if="${i3.get('href').textValue()} neq ''">
+                                                    <a
+                                                        th:href="${i3.get('href').textValue()}"
+                                                        th:text="${i3.get('title').textValue()}"
+                                                    ></a>
+                                                </th:block>
+                                                <th:block th:if="${i3.get('href').textValue()} eq ''">
+                                                    [[${i3.get('title').textValue()}]]
+                                                </th:block>
+                                            </li>
+                                        </ul>
+                                    </th:block>
+                                </li>
+                            </ul>
+                        </th:block>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
 </html>

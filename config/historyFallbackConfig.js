@@ -2,9 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const fastGlob = require('fast-glob');
 
-const getHistoryFallbackConfig = (paths) => {
-    const modelExist = (filePath) => {
-        return !!paths.moduleFileExtensions.find((extension) => fs.existsSync(`${filePath}.${extension}`));
+const getHistoryFallbackConfig = paths => {
+    const modelExist = filePath => {
+        return !!paths.moduleFileExtensions.find(extension => fs.existsSync(`${filePath}.${extension}`));
     };
 
     const entries = [];
@@ -14,8 +14,8 @@ const getHistoryFallbackConfig = (paths) => {
             cwd: path.join(paths.appSrc, 'pages'),
             absolute: true
         })
-        .filter((pagePath) => modelExist(path.join(pagePath, 'index')))
-        .forEach((pagePath) => {
+        .filter(pagePath => modelExist(path.join(pagePath, 'index')))
+        .forEach(pagePath => {
             const entyName = path.basename(pagePath);
             entries.push({
                 from: new RegExp('^/' + entyName + '$'),
